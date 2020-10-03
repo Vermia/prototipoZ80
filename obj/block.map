@@ -8,17 +8,17 @@ Area                                    Addr        Size        Decimal Bytes (A
       Value  Global                              Global Defined In Module
       -----  --------------------------------   ------------------------
      00000000  .__.ABS.                           cpct_firmware
-     0000011C  l__DATA                         
-     00000141  l__CODE                         
+     00000109  l__DATA                         
+     0000014A  l__CODE                         
      00004000  s__CODE                         
-     00004141  s__DATA                         
+     0000414A  s__DATA                         
 
 ASxxxx Linker V03.00 + NoICE + sdld,  page 2.
 Hexadecimal  [32-Bits]
 
 Area                                    Addr        Size        Decimal Bytes (Attributes)
 --------------------------------        ----        ----        ------- ----- ------------
-_CODE                               00004000    00000141 =         321. bytes (REL,CON)
+_CODE                               00004000    0000014A =         330. bytes (REL,CON)
 
       Value  Global                              Global Defined In Module
       -----  --------------------------------   ------------------------
@@ -26,28 +26,28 @@ _CODE                               00004000    00000141 =         321. bytes (R
      0000400F  entity_create_player               
      00004021  entity_create                      
      00004053  entity_forall                      
-     00004074  cpct_drawSprite_asm                cpct_sprites
-     00004114  _cpct_disableFirmware              cpct_firmware
-     00004114  _cpct_removeInterruptHandler       cpct_firmware
-     00004114  cpct_disableFirmware_asm           cpct_firmware
-     00004114  cpct_removeInterruptHandler_asm    cpct_firmware
-     00004124  cpct_getScreenPtr_asm              cpct_video
-     00004140  _cpct_mode_rom_status              cpct_firmware
+     00004074  entity_aux_call_function           
+     00004076  entity_forfirst                    
+     0000407D  cpct_drawSprite_asm                cpct_sprites
+     0000411D  _cpct_disableFirmware              cpct_firmware
+     0000411D  _cpct_removeInterruptHandler       cpct_firmware
+     0000411D  cpct_disableFirmware_asm           cpct_firmware
+     0000411D  cpct_removeInterruptHandler_asm    cpct_firmware
+     0000412D  cpct_getScreenPtr_asm              cpct_video
+     00004149  _cpct_mode_rom_status              cpct_firmware
 
 ASxxxx Linker V03.00 + NoICE + sdld,  page 3.
 Hexadecimal  [32-Bits]
 
 Area                                    Addr        Size        Decimal Bytes (Attributes)
 --------------------------------        ----        ----        ------- ----- ------------
-_DATA                               00004141    0000011C =         284. bytes (REL,CON)
+_DATA                               0000414A    00000109 =         265. bytes (REL,CON)
 
       Value  Global                              Global Defined In Module
       -----  --------------------------------   ------------------------
-     00004198  entity_array                       
-     00004217  render_init                        
-     00004218  render_one_entity                  
-     00004235  PlayerSprite                       
-
+     00004220  render_init                        
+     00004221  render_one_entity                  
+     0000423F  PlayerSprite                       
 ASxxxx Linker V03.00 + NoICE + sdld,  page 4.
 
 Files Linked                              [ module(s) ]

@@ -7,7 +7,7 @@ Hexadecimal [16-Bits]
                               1 
                               2 .area _DATA
                               3     
-   0000                       4 PlayerSprite:
+   0000                       4 PlayerSprite::
    0000 70 E0                 5         .db     #0x70 , #0xe0 
    0002 33 CC                 6         .db     #0x33 , #0xcc 
    0004 11 88                 7         .db     #0x11 , #0x88 

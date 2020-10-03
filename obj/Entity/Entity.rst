@@ -5,22 +5,21 @@ Hexadecimal [16-Bits]
 
                               1 .include "Entity.h.s"
                               1 .area _DATA
-                              2 .globl entity_array 
-                              3 
-   4198                       4     entity_array:           .ds 80                  ;Direccion donde estan guardadas las entities
-   41E8 08                    5     entity_data_size:       .db #8                  ;Cantidad de bytes por entity
-   41E9 00                    6     entity_num:             .db #0                  ;Numero de entidades activas actualmente
-                              7 
-   41EA 00 00                 8     entity_function_being_called:   .dw #0x0000     ;Funcion a la que estamos llamando en forall
-   41EC                       9     entity_next_sprite:             .ds 2           ;Direccion del sprite parametro a la hora de crear una entity
-   41EE 00                   10     entity_iterator:                .db #0          ;Ni cuando puse esto sabia para que valia           
-                             11 
-                             12     
+                              2 ;.globl entity_array
+   41A1                       3     entity_array:           .ds 80                  ;Direccion donde estan guardadas las entities
+   41F1 08                    4     entity_data_size:       .db #8                  ;Cantidad de bytes por entity
+   41F2 00                    5     entity_num:             .db #0                  ;Numero de entidades activas actualmente
+                              6 
+   41F3 00 00                 7     entity_function_being_called:   .dw #0x0000     ;Funcion a la que estamos llamando en forall
+   41F5                       8     entity_next_sprite:             .ds 2           ;Direccion del sprite parametro a la hora de crear una entity
+   41F7 00                    9     entity_iterator:                .db #0          ;Ni cuando puse esto sabia para que valia           
+                             10 
+                             11     
+                             12 
                              13 
-                             14 
-                             15 .area _CODE
-                             16 .globl PlayerSprite
-                             17 .globl entity_create_player
+                             14 .area _CODE
+                             15 .globl PlayerSprite
+                             16 .globl entity_create_player
 ASxxxx Assembler V02.00 + NoICE + SDCC mods  (Zilog Z80 / Hitachi HD64180), page 2.
 Hexadecimal [16-Bits]
 
@@ -28,8 +27,8 @@ Hexadecimal [16-Bits]
 
                               2 
    400F                       3 entity_create_player:
-   400F 21 35 42      [10]    4     ld hl, #PlayerSprite
-   4012 22 EC 41      [16]    5     ld (entity_next_sprite), hl
+   400F 21 3F 42      [10]    4     ld hl, #PlayerSprite
+   4012 22 F5 41      [16]    5     ld (entity_next_sprite), hl
    4015 16 04         [ 7]    6     ld d, #4
    4017 1E 01         [ 7]    7     ld e, #1
    4019 0E 27         [ 7]    8     ld c, #39
@@ -43,19 +42,19 @@ Hexadecimal [16-Bits]
                              16                 ; sirviera en un futuro, que no lo sé
                              17 
                              18     ;No generamos entidad si ya hay tantas como el maximo
-   4021 3A E9 41      [13]   19     ld a, (entity_num)
+   4021 3A F2 41      [13]   19     ld a, (entity_num)
    4024 FE 14         [ 7]   20     cp #0x14
    4026 28 2A         [12]   21     jr z, entity_create_end
                              22 
                              23     ;Buscamos una entidad vacía. Sabemos que hay una porque no hemos llegado al maximo
-   4028 21 98 41      [10]   24     ld hl, #entity_array
+   4028 21 A1 41      [10]   24     ld hl, #entity_array
    402B                      25     buscandoceros:
    402B 7E            [ 7]   26         ld a, (hl)
    402C FE 00         [ 7]   27         cp #0
    402E 28 09         [12]   28         jr z, terminodebuscar
                              29 
                              30         ;Avanzamos a la siguiente
-   4030 3A E8 41      [13]   31         ld a, (entity_data_size)
+   4030 3A F1 41      [13]   31         ld a, (entity_data_size)
    4033                      32         createiterator:
    4033 23            [ 6]   33             inc hl
    4034 3D            [ 4]   34             dec a
@@ -74,7 +73,7 @@ Hexadecimal [16-Bits]
    4041 23            [ 6]   47     inc hl
    4042 36 00         [10]   48     ld (hl), #0 ;velY
    4044 23            [ 6]   49     inc hl
-   4045 ED 4B EC 41   [20]   50     ld bc, (entity_next_sprite)
+   4045 ED 4B F5 41   [20]   50     ld bc, (entity_next_sprite)
    4049 71            [ 7]   51     ld (hl), c ;Sprite
    404A 23            [ 6]   52     inc hl
    404B 70            [ 7]   53     ld (hl), b
@@ -86,7 +85,7 @@ Hexadecimal [16-Bits]
 
 
 
-   404E 21 E9 41      [10]   57     ld hl, #entity_num
+   404E 21 F2 41      [10]   57     ld hl, #entity_num
    4051 34            [11]   58     inc (hl)
                              59 
    4052                      60     entity_create_end:
@@ -100,32 +99,37 @@ Hexadecimal [16-Bits]
                              68 
                              69 
    4053                      70 entity_forall:: ; Parametros:   (hl) direccion de la funcion a llamar
-   4053 22 EA 41      [16]   71     ld (entity_function_being_called), hl
-                             72 
-                             73     ;empezamos en la primera
-   4056 21 98 41      [10]   74     ld hl, #entity_array
-   4059 EB            [ 4]   75     ex de, hl
-                             76 
-   405A                      77     forallentities:
-                             78         ;Primero hacemos la funcion sobre la primera
-   405A CD EA 41      [17]   79         call (entity_function_being_called)
-                             80 
-                             81         ;Avanzamos a la siguiente
-   405D                      82         foralliterator:
-   405D 3A E8 41      [13]   83             ld a, (entity_data_size)
-   4060 21 EE 41      [10]   84             ld hl, #entity_iterator
-   4063 34            [11]   85             inc (hl)
-   4064 EB            [ 4]   86             ex de, hl
-   4065 23            [ 6]   87             inc hl
-   4066 3D            [ 4]   88             dec a
-   4067 20 F4         [12]   89         jr nz, foralliterator
-                             90 
-                             91         ;Comprobamos si hemos terminado
-   4069 3A E9 41      [13]   92         ld a, (entity_num)
-   406C 4F            [ 4]   93         ld c, a
-   406D 3A EE 41      [13]   94         ld a, (entity_iterator)
-   4070 B9            [ 4]   95         cp c
-   4071 20 E7         [12]   96     jr nz, forallentities
-                             97 
-   4073 C9            [10]   98 ret
-                             99 
+   4053 22 F3 41      [16]   71     ld (entity_function_being_called), hl
+                             72    ;empezamos en la primera
+   4056 21 A1 41      [10]   73     ld hl, #entity_array
+   4059 EB            [ 4]   74     ex de, hl
+   405A                      75     forallentities:
+                             76        ;Primero hacemos la funcion sobre la primera
+   405A CD F3 41      [17]   77        call (entity_function_being_called)
+                             78        ;Avanzamos a la siguiente
+   405D                      79         foralliterator:
+   405D 3A F1 41      [13]   80             ld a, (entity_data_size)
+   4060 21 F7 41      [10]   81             ld hl, #entity_iterator
+   4063 34            [11]   82             inc (hl)
+   4064 EB            [ 4]   83             ex de, hl
+   4065 23            [ 6]   84             inc hl
+   4066 3D            [ 4]   85             dec a
+   4067 20 F4         [12]   86         jr nz, foralliterator
+                             87 
+                             88         ;Comprobamos si hemos terminado
+   4069 3A F2 41      [13]   89         ld a, (entity_num)
+   406C 4F            [ 4]   90         ld c, a
+   406D 3A F7 41      [13]   91         ld a, (entity_iterator)
+   4070 B9            [ 4]   92         cp c
+   4071 20 E7         [12]   93     jr nz, forallentities
+                             94 
+   4073 C9            [10]   95 ret
+                             96 
+   4074                      97 entity_aux_call_function::
+   4074 E9            [ 4]   98     jp (hl)
+   4075 C9            [10]   99 ret
+                            100 
+   4076                     101 entity_forfirst:: ; Parametros:   (hl) direccion de la funcion a llamar
+   4076 11 A1 41      [10]  102     ld de, #entity_array
+   4079 CD 74 40      [17]  103     call entity_aux_call_function
+   407C C9            [10]  104 ret

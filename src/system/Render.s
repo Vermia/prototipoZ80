@@ -4,8 +4,8 @@ render_init::
     
 ret
 
-render_one_entity:: ;En hl, la entity a renderizar
-    
+render_one_entity:: ;En bc, la entity a renderizar
+    ex de, hl
     
     ;Comprobamos que la entity sea renderizable
     ld a, (hl)

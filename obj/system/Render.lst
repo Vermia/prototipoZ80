@@ -33,31 +33,31 @@ Hexadecimal [16-Bits]
                               4     
    0014 C9            [10]    5 ret
                               6 
-   0015                       7 render_one_entity:: ;En hl, la entity a renderizar
-                              8     
+   0015                       7 render_one_entity:: ;En bc, la entity a renderizar
+   0015 EB            [ 4]    8     ex de, hl
                               9     
                              10     ;Comprobamos que la entity sea renderizable
-   0015 7E            [ 7]   11     ld a, (hl)
-   0016 E6 04         [ 7]   12     and a, #4 ;Componente Renderizable
-   0018 FE 00         [ 7]   13     cp #0
-   001A 28 15         [12]   14     jr z, render_end
+   0016 7E            [ 7]   11     ld a, (hl)
+   0017 E6 04         [ 7]   12     and a, #4 ;Componente Renderizable
+   0019 FE 00         [ 7]   13     cp #0
+   001B 28 15         [12]   14     jr z, render_end
                              15 
                              16     ;Preparamos getScreenPtr
-   001C 23            [ 6]   17     inc hl ;posX
-   001D 4E            [ 7]   18     ld c, (hl)
-   001E 23            [ 6]   19     inc hl ;posY
-   001F 46            [ 7]   20     ld b, (hl)
+   001D 23            [ 6]   17     inc hl ;posX
+   001E 4E            [ 7]   18     ld c, (hl)
+   001F 23            [ 6]   19     inc hl ;posY
+   0020 46            [ 7]   20     ld b, (hl)
                              21     
-   0020 11 00 C0      [10]   22     ld de, #0xc000
-   0023 CD 00 00      [17]   23     call cpct_getScreenPtr_asm
+   0021 11 00 C0      [10]   22     ld de, #0xc000
+   0024 CD 00 00      [17]   23     call cpct_getScreenPtr_asm
                              24 
                              25     ;Y ahora dibujar el sprite
-   0026 EB            [ 4]   26     ex de, hl
-   0027 21 00 00      [10]   27     ld hl, #PlayerSprite
-   002A 0E 02         [ 7]   28     ld c, #2
-   002C 06 0A         [ 7]   29     ld b, #10
-   002E CD 00 00      [17]   30     call cpct_drawSprite_asm
+   0027 EB            [ 4]   26     ex de, hl
+   0028 21 00 00      [10]   27     ld hl, #PlayerSprite
+   002B 0E 02         [ 7]   28     ld c, #2
+   002D 06 0A         [ 7]   29     ld b, #10
+   002F CD 00 00      [17]   30     call cpct_drawSprite_asm
                              31     
                              32 
-   0031                      33     render_end:
-   0031 C9            [10]   34 ret
+   0032                      33     render_end:
+   0032 C9            [10]   34 ret

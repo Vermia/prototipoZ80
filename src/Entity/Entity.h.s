@@ -1,4 +1,5 @@
 .area _DATA
+;.globl entity_array
     entity_array:           .ds 80                  ;Direccion donde estan guardadas las entities
     entity_data_size:       .db #8                  ;Cantidad de bytes por entity
     entity_num:             .db #0                  ;Numero de entidades activas actualmente

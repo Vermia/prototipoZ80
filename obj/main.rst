@@ -2697,39 +2697,41 @@ Hexadecimal [16-Bits]
 
 
 
-                              3 ;.include "Objetos/Player.h.s"
-                              4 
-                              5 .area _DATA
-                              6 
-                              7 .globl cpct_disableFirmware_asm
-                              8 .globl cpct_getScreenPtr_asm
-                              9 .globl render_init
-                             10 .globl cpct_drawSprite_asm
-                             11 ;.globl entity_create
-                             12 ;.globl entity_forall
-                             13 .globl render_one_entity
-                             14 .globl entity_create_player
-                             15 .globl PlayerSprite
-                             16 .globl entity_array
-                             17 
-                             18 
+                              3 ;.include "Entity/Entity.h.s"
+                              4 ;.include "Objetos/Player.h.s"
+                              5 
+                              6 .area _DATA
+                              7 
+                              8 .globl cpct_disableFirmware_asm
+                              9 .globl cpct_getScreenPtr_asm
+                             10 .globl render_init
+                             11 .globl cpct_drawSprite_asm
+                             12 ;.globl entity_create
+                             13 ;.globl entity_forall
+                             14 ;.globl entity_array
+                             15 .globl entity_forfirst
+                             16 .globl render_one_entity
+                             17 .globl entity_create_player
+                             18 .globl PlayerSprite
                              19 
-                             20 .area _CODE
+                             20 
                              21 
                              22 
-   4000                      23 main_init:
-                             24    
-   4000 C9            [10]   25 ret
-                             26 
-   4001                      27 _main::
-   4001 CD 14 41      [17]   28    call cpct_disableFirmware_asm
-   4004 CD 0F 40      [17]   29    call entity_create_player
-                             30 
-   4007                      31    main_gameloop:
-   4007 21 98 41      [10]   32       ld hl, #entity_array
-   400A CD 18 42      [17]   33       call render_one_entity
-                             34 
-                             35       ;ld hl, #render_one_entity
-                             36       ;call entity_forall
-                             37 
-   400D 18 F8         [12]   38 jr main_gameloop
+                             23 .area _CODE
+                             24 
+                             25 
+   4000                      26 main_init:
+                             27    
+   4000 C9            [10]   28 ret
+                             29 
+   4001                      30 _main::
+   4001 CD 1D 41      [17]   31    call cpct_disableFirmware_asm
+   4004 CD 0F 40      [17]   32    call entity_create_player
+                             33 
+   4007                      34    main_gameloop:
+                             35 
+   4007 21 21 42      [10]   36       ld hl, #render_one_entity
+                             37       ;call entity_forall
+   400A CD 76 40      [17]   38       call entity_forfirst
+                             39 
+   400D 18 F8         [12]   40 jr main_gameloop

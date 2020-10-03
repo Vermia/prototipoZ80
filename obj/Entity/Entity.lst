@@ -5,22 +5,21 @@ Hexadecimal [16-Bits]
 
                               1 .include "Entity.h.s"
                               1 .area _DATA
-                              2 .globl entity_array 
-                              3 
-   0000                       4     entity_array:           .ds 80                  ;Direccion donde estan guardadas las entities
-   0050 08                    5     entity_data_size:       .db #8                  ;Cantidad de bytes por entity
-   0051 00                    6     entity_num:             .db #0                  ;Numero de entidades activas actualmente
-                              7 
-   0052 00 00                 8     entity_function_being_called:   .dw #0x0000     ;Funcion a la que estamos llamando en forall
-   0054                       9     entity_next_sprite:             .ds 2           ;Direccion del sprite parametro a la hora de crear una entity
-   0056 00                   10     entity_iterator:                .db #0          ;Ni cuando puse esto sabia para que valia           
-                             11 
-                             12     
+                              2 ;.globl entity_array
+   0000                       3     entity_array:           .ds 80                  ;Direccion donde estan guardadas las entities
+   0050 08                    4     entity_data_size:       .db #8                  ;Cantidad de bytes por entity
+   0051 00                    5     entity_num:             .db #0                  ;Numero de entidades activas actualmente
+                              6 
+   0052 00 00                 7     entity_function_being_called:   .dw #0x0000     ;Funcion a la que estamos llamando en forall
+   0054                       8     entity_next_sprite:             .ds 2           ;Direccion del sprite parametro a la hora de crear una entity
+   0056 00                    9     entity_iterator:                .db #0          ;Ni cuando puse esto sabia para que valia           
+                             10 
+                             11     
+                             12 
                              13 
-                             14 
-                             15 .area _CODE
-                             16 .globl PlayerSprite
-                             17 .globl entity_create_player
+                             14 .area _CODE
+                             15 .globl PlayerSprite
+                             16 .globl entity_create_player
 ASxxxx Assembler V02.00 + NoICE + SDCC mods  (Zilog Z80 / Hitachi HD64180), page 2.
 Hexadecimal [16-Bits]
 
@@ -101,31 +100,36 @@ Hexadecimal [16-Bits]
                              69 
    0044                      70 entity_forall:: ; Parametros:   (hl) direccion de la funcion a llamar
    0044 22 52 00      [16]   71     ld (entity_function_being_called), hl
-                             72 
-                             73     ;empezamos en la primera
-   0047 21 00 00      [10]   74     ld hl, #entity_array
-   004A EB            [ 4]   75     ex de, hl
-                             76 
-   004B                      77     forallentities:
-                             78         ;Primero hacemos la funcion sobre la primera
-   004B CD 52 00      [17]   79         call (entity_function_being_called)
-                             80 
-                             81         ;Avanzamos a la siguiente
-   004E                      82         foralliterator:
-   004E 3A 50 00      [13]   83             ld a, (entity_data_size)
-   0051 21 56 00      [10]   84             ld hl, #entity_iterator
-   0054 34            [11]   85             inc (hl)
-   0055 EB            [ 4]   86             ex de, hl
-   0056 23            [ 6]   87             inc hl
-   0057 3D            [ 4]   88             dec a
-   0058 20 F4         [12]   89         jr nz, foralliterator
-                             90 
-                             91         ;Comprobamos si hemos terminado
-   005A 3A 51 00      [13]   92         ld a, (entity_num)
-   005D 4F            [ 4]   93         ld c, a
-   005E 3A 56 00      [13]   94         ld a, (entity_iterator)
-   0061 B9            [ 4]   95         cp c
-   0062 20 E7         [12]   96     jr nz, forallentities
-                             97 
-   0064 C9            [10]   98 ret
-                             99 
+                             72    ;empezamos en la primera
+   0047 21 00 00      [10]   73     ld hl, #entity_array
+   004A EB            [ 4]   74     ex de, hl
+   004B                      75     forallentities:
+                             76        ;Primero hacemos la funcion sobre la primera
+   004B CD 52 00      [17]   77        call (entity_function_being_called)
+                             78        ;Avanzamos a la siguiente
+   004E                      79         foralliterator:
+   004E 3A 50 00      [13]   80             ld a, (entity_data_size)
+   0051 21 56 00      [10]   81             ld hl, #entity_iterator
+   0054 34            [11]   82             inc (hl)
+   0055 EB            [ 4]   83             ex de, hl
+   0056 23            [ 6]   84             inc hl
+   0057 3D            [ 4]   85             dec a
+   0058 20 F4         [12]   86         jr nz, foralliterator
+                             87 
+                             88         ;Comprobamos si hemos terminado
+   005A 3A 51 00      [13]   89         ld a, (entity_num)
+   005D 4F            [ 4]   90         ld c, a
+   005E 3A 56 00      [13]   91         ld a, (entity_iterator)
+   0061 B9            [ 4]   92         cp c
+   0062 20 E7         [12]   93     jr nz, forallentities
+                             94 
+   0064 C9            [10]   95 ret
+                             96 
+   0065                      97 entity_aux_call_function::
+   0065 E9            [ 4]   98     jp (hl)
+   0066 C9            [10]   99 ret
+                            100 
+   0067                     101 entity_forfirst:: ; Parametros:   (hl) direccion de la funcion a llamar
+   0067 11 00 00      [10]  102     ld de, #entity_array
+   006A CD 65 00      [17]  103     call entity_aux_call_function
+   006D C9            [10]  104 ret

@@ -69,16 +69,13 @@ ret
 
 entity_forall:: ; Parametros:   (hl) direccion de la funcion a llamar
     ld (entity_function_being_called), hl
-
-    ;empezamos en la primera
+   ;empezamos en la primera
     ld hl, #entity_array
     ex de, hl
-
     forallentities:
-        ;Primero hacemos la funcion sobre la primera
-        call (entity_function_being_called)
-
-        ;Avanzamos a la siguiente
+       ;Primero hacemos la funcion sobre la primera
+       call (entity_function_being_called)
+       ;Avanzamos a la siguiente
         foralliterator:
             ld a, (entity_data_size)
             ld hl, #entity_iterator
@@ -97,3 +94,11 @@ entity_forall:: ; Parametros:   (hl) direccion de la funcion a llamar
 
 ret
 
+entity_aux_call_function::
+    jp (hl)
+ret
+
+entity_forfirst:: ; Parametros:   (hl) direccion de la funcion a llamar
+    ld de, #entity_array
+    call entity_aux_call_function
+ret
