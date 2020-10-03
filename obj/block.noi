@@ -1,5 +1,4 @@
 DEF .__.ABS. 0x0
-DEF cpct_getScreenPtr 0x0
 DEF l__DATA 0xEA
 DEF l__CODE 0x143
 DEF s__CODE 0x4000

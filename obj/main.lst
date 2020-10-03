@@ -2711,39 +2711,35 @@ Hexadecimal [16-Bits]
    000E 22 44                14         .db     #0x22 , #0x44 
    0010 22 44                15         .db     #0x22 , #0x44 
    0012 66 66                16         .db     #0x66 , #0x66 
-                             17         .globl cpct_disableFirmware_asm
-                             18 .globl cpct_getScreenPtr_asm
-                             19 .globl render_init
-                             20 .globl cpct_drawSprite_asm
-                             21 
-                             22 .area _CODE
-                             23 
+                             17 
+                             18 .globl cpct_disableFirmware_asm
+                             19 .globl cpct_getScreenPtr_asm
+                             20 .globl render_init
+                             21 .globl cpct_drawSprite_asm
+                             22 
+                             23 .area _CODE
                              24 
                              25 
-                             26 
-                             27 
-                             28 
+   0000                      26 main_init:
+   0000 CD 00 00      [17]   27    call cpct_disableFirmware_asm
+   0003 C9            [10]   28 ret
                              29 
-                             30 
-   0000                      31 main_init:
-   0000 CD 00 00      [17]   32    call cpct_disableFirmware_asm
-   0003 C9            [10]   33 ret
-                             34 
-   0004                      35 _main::
-                             36 
-   0004 CD 00 00      [17]   37    call main_init
-                             38 
-   0007                      39    main_gameloop:
+   0004                      30 _main::
+                             31 
+   0004 CD 00 00      [17]   32    call main_init
+                             33 
+   0007                      34    main_gameloop:
+                             35 
+   0007 11 00 C0      [10]   36       ld de, #0xc000
+   000A 0E 27         [ 7]   37       ld c,  #39
+   000C 06 64         [ 7]   38       ld b,  #100
+   000E CD 00 00      [17]   39     call cpct_getScreenPtr_asm
                              40 
-   0007 11 00 C0      [10]   41       ld de, #0xc000
-   000A 0E 27         [ 7]   42       ld c,  #39
-   000C 06 64         [ 7]   43       ld b,  #100
-   000E CD 00 00      [17]   44     call cpct_getScreenPtr_asm
-                             45 
-   0011 EB            [ 4]   46     ex de, hl
-   0012 21 00 00      [10]   47     ld hl, #PlayerSprite
-   0015 0E 02         [ 7]   48     ld c, #2
-   0017 06 0A         [ 7]   49     ld b, #10
-   0019 CD 00 00      [17]   50     call cpct_drawSprite_asm
-                             51 
-   001C 18 E9         [12]   52 jr main_gameloop
+   0011 EB            [ 4]   41     ex de, hl
+   0012 21 00 00      [10]   42     ld hl, #PlayerSprite
+   0015 0E 02         [ 7]   43     ld c, #2
+   0017 06 0A         [ 7]   44     ld b, #10
+   0019 CD 00 00      [17]   45     call cpct_drawSprite_asm
+                             46 
+                             47 
+   001C 18 E9         [12]   48 jr main_gameloop

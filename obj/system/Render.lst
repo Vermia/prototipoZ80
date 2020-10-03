@@ -8,7 +8,7 @@ Hexadecimal [16-Bits]
                               2 
                               3 .globl render_one_entity
                               4 .globl render_init
-                              5 .globl cpct_getScreenPtr
+                              5 ;.globl cpct_getScreenPtr_asm
                               6 
                               7 
                               8 

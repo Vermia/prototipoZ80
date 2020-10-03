@@ -8,11 +8,11 @@ Area                                    Addr        Size        Decimal Bytes (A
       Value  Global                              Global Defined In Module
       -----  --------------------------------   ------------------------
      00000000  .__.ABS.                           cpct_firmware
-     00000000  cpct_getScreenPtr               
      000000EA  l__DATA                         
      00000143  l__CODE                         
      00004000  s__CODE                         
      00004143  s__DATA                         
+
 ASxxxx Linker V03.00 + NoICE + sdld,  page 2.
 Hexadecimal  [32-Bits]
 
@@ -80,4 +80,3 @@ _CODE = 0x4000
 _DATA = 0x0000
 
 
-?ASlink-Warning-Undefined Global 'cpct_getScreenPtr' referenced by module ''

@@ -1,7 +1,6 @@
 XL2
-H 1 areas 4 global symbols
+H 1 areas 3 global symbols
 S .__.ABS. Def0000
-S cpct_getScreenPtr Ref0000
 A _CODE size D flags 0 addr 0
 S render_init Def0000
 S render_one_entity Def0001
