@@ -2697,28 +2697,53 @@ Hexadecimal [16-Bits]
 
 
 
-                              3 
-                              4 .area _DATA
-                              5 
-                              6 
-                              7 .area _CODE
-                              8 
-                              9 
-                             10 .globl cpct_disableFirmware_asm
-                             11 .globl render_init
-                             12 
-                             13 
-                             14 
-   4000                      15 main_init:
-   4000 CD 2A 40      [17]   16    call cpct_disableFirmware_asm
-   4003 C9            [10]   17 ret
-                             18 
-   4004                      19 _main::
-                             20 
-   4004 CD 00 40      [17]   21    call main_init
-                             22 
-   4007                      23    main_gameloop:
+                              3 ;.include "Objetos/Player.h.s"
+                              4 
+                              5 .area _DATA
+   4143                       6 PlayerSprite:
+   4143 33 CC                 7         .db     #0x33 , #0xCC 
+   4145 77 EE                 8         .db     #0x77 , #0xEE 
+   4147 11 88                 9         .db     #0x11 , #0x88 
+   4149 F0 F0                10         .db     #0xF0 , #0xF0 
+   414B BB DD                11         .db     #0xBB , #0xDD 
+   414D BB DD                12         .db     #0xBB , #0xDD 
+   414F 0A 55                13         .db     #0x0A , #0x55 
+   4151 22 44                14         .db     #0x22 , #0x44 
+   4153 22 44                15         .db     #0x22 , #0x44 
+   4155 66 66                16         .db     #0x66 , #0x66 
+                             17         .globl cpct_disableFirmware_asm
+                             18 .globl cpct_getScreenPtr_asm
+                             19 .globl render_init
+                             20 .globl cpct_drawSprite_asm
+                             21 
+                             22 .area _CODE
+                             23 
                              24 
-                             25       
+                             25 
                              26 
-   4007 18 FE         [12]   27 jr main_gameloop
+                             27 
+                             28 
+                             29 
+                             30 
+   4000                      31 main_init:
+   4000 CD 16 41      [17]   32    call cpct_disableFirmware_asm
+   4003 C9            [10]   33 ret
+                             34 
+   4004                      35 _main::
+                             36 
+   4004 CD 00 40      [17]   37    call main_init
+                             38 
+   4007                      39    main_gameloop:
+                             40 
+   4007 11 00 C0      [10]   41       ld de, #0xc000
+   400A 0E 27         [ 7]   42       ld c,  #39
+   400C 06 64         [ 7]   43       ld b,  #100
+   400E CD 26 41      [17]   44     call cpct_getScreenPtr_asm
+                             45 
+   4011 EB            [ 4]   46     ex de, hl
+   4012 21 43 41      [10]   47     ld hl, #PlayerSprite
+   4015 0E 02         [ 7]   48     ld c, #2
+   4017 06 0A         [ 7]   49     ld b, #10
+   4019 CD 76 40      [17]   50     call cpct_drawSprite_asm
+                             51 
+   401C 18 E9         [12]   52 jr main_gameloop

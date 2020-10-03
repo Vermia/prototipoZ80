@@ -5,7 +5,7 @@ render_init::
 ret
 
 render_one_entity::
-    ld de, #0xc000
+    
     
     ;Comprobamos que la entity sea renderizable
     ld a, (hl)
@@ -18,7 +18,7 @@ render_one_entity::
     ld c, (hl)
     inc hl ;posY
     ld b, (hl)
-
+    
     
 
     render_end:

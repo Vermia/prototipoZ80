@@ -37,7 +37,8 @@ entity_create:: ; Parametros: d(componentes), c(posX), b(posY), e(tipo), (entity
     inc hl
     ld (hl), #0 ;velY
     inc hl
-    ld (hl), (entity_next_sprite) ;Sprite
+    ld a, (entity_next_sprite)
+    ld (hl), a ;Sprite
     inc hl
     inc hl
     ld (hl), e ;tipo de entity

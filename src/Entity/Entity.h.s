@@ -4,7 +4,7 @@
     entity_num:             .db #0                  ;Numero de entidades activas actualmente
 
     entity_function_being_called:   .dw #0x0000     ;Funcion a la que estamos llamando en forall
-    entity_next_sprite              .dw #0x0000     ;Direccion del sprite parametro a la hora de crear una entity
+    entity_next_sprite:             .dw #0x0000     ;Direccion del sprite parametro a la hora de crear una entity
     entity_iterator:                .db #0          ;Ni cuando puse esto sabia para que valia           
 
     

@@ -14,5 +14,7 @@ obj/system/Physics.h.rel
 obj/system/Physics.rel
 obj/system/Render.h.rel
 obj/system/Render.rel
+obj/Objetos/Player.h.rel
+obj/Objetos/Player.rel
 
 -e

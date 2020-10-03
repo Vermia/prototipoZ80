@@ -8,7 +8,7 @@ Hexadecimal [16-Bits]
                               2 
                               3 .globl render_one_entity
                               4 .globl render_init
-                              5 
+                              5 .globl cpct_getScreenPtr
                               6 
                               7 
                               8 
@@ -24,8 +24,21 @@ Hexadecimal [16-Bits]
    0000 C9            [10]    5 ret
                               6 
    0001                       7 render_one_entity::
-   0001 11 00 C0      [10]    8     ld de, #0xc000
+                              8     
                               9     
-a  0004               [10]   10     ld ix, hl
-                             11 
-   0004 C9            [10]   12 ret
+                             10     ;Comprobamos que la entity sea renderizable
+   0001 7E            [ 7]   11     ld a, (hl)
+   0002 E6 04         [ 7]   12     and a, #4 ;Componente Renderizable
+   0004 FE 00         [ 7]   13     cp #0
+   0006 28 04         [12]   14     jr z, render_end
+                             15 
+                             16     ;Preparamos getScreenPtr
+   0008 23            [ 6]   17     inc hl ;posX
+   0009 4E            [ 7]   18     ld c, (hl)
+   000A 23            [ 6]   19     inc hl ;posY
+   000B 46            [ 7]   20     ld b, (hl)
+                             21     
+                             22     
+                             23 
+   000C                      24     render_end:
+   000C C9            [10]   25 ret
