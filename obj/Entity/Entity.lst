@@ -1,0 +1,54 @@
+ASxxxx Assembler V02.00 + NoICE + SDCC mods  (Zilog Z80 / Hitachi HD64180), page 1.
+Hexadecimal [16-Bits]
+
+
+
+                              1 .include "Entity.h.s"
+                              1 .area _DATA
+   0000                       2     entity_array:           .ds 80
+   0050 08                    3     entity_data_size:       .db #8
+   0051 00                    4     entity_num:             .db #0
+                              5 
+   0052 00 00                 6     entity_function_being_called:   .dw #0x0000
+   0054 00                    7     entity_iterator:                .db 0
+                              8 
+                              9     
+                             10 
+                             11 .area _CODE
+                             12 
+                             13 
+                             14 .globl entity_forall
+ASxxxx Assembler V02.00 + NoICE + SDCC mods  (Zilog Z80 / Hitachi HD64180), page 2.
+Hexadecimal [16-Bits]
+
+
+
+                              2 
+   0000                       3 entity_forall:: ; Parametros:   (hl) direccion de la funcion a llamar
+   0000 22 52 00      [16]    4     ld (entity_function_being_called), hl
+                              5 
+                              6     ;empezamos en la primera
+   0003 21 00 00      [10]    7     ld hl, #entity_array
+   0006 EB            [ 4]    8     ex de, hl
+                              9 
+   0007                      10     forallentities:
+                             11         ;Primero hacemos la funcion sobre la primera
+   0007 CD 52 00      [17]   12         call (entity_function_being_called)
+                             13 
+                             14         ;Avanzamos a la siguiente
+   000A                      15         foralliterator:
+   000A 3A 50 00      [13]   16             ld a, (entity_data_size)
+   000D 2A 54 00      [16]   17             ld hl, (entity_iterator)
+   0010 34            [11]   18             inc (hl)
+   0011 3D            [ 4]   19             dec a
+   0012 20 F6         [12]   20         jr nz, foralliterator
+                             21 
+                             22         ;Comprobamos si hemos terminado
+   0014 3A 51 00      [13]   23         ld a, (entity_num)
+   0017 4F            [ 4]   24         ld c, a
+   0018 3A 54 00      [13]   25         ld a, (entity_iterator)
+   001B B9            [ 4]   26         cp c
+   001C 20 E9         [12]   27     jr nz, forallentities
+                             28 
+   001E C9            [10]   29 ret
+                             30 

@@ -1,0 +1,14 @@
+DEF .__.ABS. 0x0
+DEF l__CODE 0x3A
+DEF l__DATA 0xAA
+DEF s__CODE 0x4000
+DEF s__DATA 0x403A
+DEF _main 0x4004
+DEF entity_forall 0x4009
+DEF render_init 0x4028
+DEF render_one_entity 0x4029
+DEF _cpct_disableFirmware 0x402A
+DEF _cpct_removeInterruptHandler 0x402A
+DEF cpct_disableFirmware_asm 0x402A
+DEF cpct_removeInterruptHandler_asm 0x402A
+LOAD obj/block.ihx

@@ -1,0 +1,31 @@
+ASxxxx Assembler V02.00 + NoICE + SDCC mods  (Zilog Z80 / Hitachi HD64180), page 1.
+Hexadecimal [16-Bits]
+
+
+
+                              1 .include "Render.h.s"
+                              1 
+                              2 
+                              3 .globl render_one_entity
+                              4 .globl render_init
+                              5 
+                              6 
+                              7 
+                              8 
+                              9 
+ASxxxx Assembler V02.00 + NoICE + SDCC mods  (Zilog Z80 / Hitachi HD64180), page 2.
+Hexadecimal [16-Bits]
+
+
+
+                              2 
+   0000                       3 render_init::
+                              4     
+   0000 C9            [10]    5 ret
+                              6 
+   0001                       7 render_one_entity::
+   0001 11 00 C0      [10]    8     ld de, #0xc000
+                              9     
+a  0004               [10]   10     ld ix, hl
+                             11 
+   0004 C9            [10]   12 ret
