@@ -1,0 +1,21 @@
+ASxxxx Assembler V02.00 + NoICE + SDCC mods  (Zilog Z80 / Hitachi HD64180), page 1.
+Hexadecimal [16-Bits]
+
+Symbol Table
+
+    .__.$$$.=  2710 L   |     .__.ABS.=  0000 G   |     .__.CPU.=  0000 L
+    .__.H$L.=  0000 L   |     PlayerSp   **** GX  |   0 buscando   001C R
+  0 createit   0024 R   |   1 entity_a   0000 GR  |   0 entity_c   0012 GR
+  0 entity_c   0043 R   |   0 entity_c   0000 GR  |   1 entity_d   0050 R
+  0 entity_f   0044 GR  |   1 entity_f   0052 R   |   1 entity_i   0056 R
+  1 entity_n   0054 R   |   1 entity_n   0051 R   |   0 forallen   004B R
+  0 forallit   004E R   |   0 terminod   002A R
+
+ASxxxx Assembler V02.00 + NoICE + SDCC mods  (Zilog Z80 / Hitachi HD64180), page 2.
+Hexadecimal [16-Bits]
+
+Area Table
+
+   0 _CODE      size   65   flags    0
+   1 _DATA      size   57   flags    0
+

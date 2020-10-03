@@ -1,5 +1,15 @@
 .include "Entity.h.s"
 
+entity_create_player:
+    ld hl, #PlayerSprite
+    ld (entity_next_sprite), hl
+    ld d, #4
+    ld e, #1
+    ld c, #39
+    ld b, #100
+    call entity_create
+ret
+
 entity_create:: ; Parametros: d(componentes), c(posX), b(posY), e(tipo), (entity_next_sprite) (sprite)
                 ; Con "tipo" quiero decir si es player, enemigo, bloque, etc
                 ; Una especie de forma de saber que es cada cosa, por si acaso
@@ -37,13 +47,15 @@ entity_create:: ; Parametros: d(componentes), c(posX), b(posY), e(tipo), (entity
     inc hl
     ld (hl), #0 ;velY
     inc hl
-    ld a, (entity_next_sprite)
-    ld (hl), a ;Sprite
+    ld bc, (entity_next_sprite)
+    ld (hl), c ;Sprite
     inc hl
+    ld (hl), b
     inc hl
     ld (hl), e ;tipo de entity
 
-
+    ld hl, #entity_num
+    inc (hl)
 
     entity_create_end:
 ret
@@ -69,8 +81,10 @@ entity_forall:: ; Parametros:   (hl) direccion de la funcion a llamar
         ;Avanzamos a la siguiente
         foralliterator:
             ld a, (entity_data_size)
-            ld hl, (entity_iterator)
+            ld hl, #entity_iterator
             inc (hl)
+            ex de, hl
+            inc hl
             dec a
         jr nz, foralliterator
 

@@ -1,0 +1,21 @@
+DEF .__.ABS. 0x0
+DEF l__DATA 0x11C
+DEF l__CODE 0x141
+DEF s__CODE 0x4000
+DEF s__DATA 0x4141
+DEF _main 0x4001
+DEF entity_create_player 0x400F
+DEF entity_create 0x4021
+DEF entity_forall 0x4053
+DEF cpct_drawSprite_asm 0x4074
+DEF _cpct_disableFirmware 0x4114
+DEF _cpct_removeInterruptHandler 0x4114
+DEF cpct_disableFirmware_asm 0x4114
+DEF cpct_removeInterruptHandler_asm 0x4114
+DEF cpct_getScreenPtr_asm 0x4124
+DEF _cpct_mode_rom_status 0x4140
+DEF entity_array 0x4198
+DEF render_init 0x4217
+DEF render_one_entity 0x4218
+DEF PlayerSprite 0x4235
+LOAD obj/block.ihx

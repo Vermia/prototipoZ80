@@ -1,0 +1,20 @@
+-mjwx
+-i obj/block.ihx
+-b _CODE = 0x4000
+-b _DATA = 0x0000
+-u
+-k /home/vermia/Desktop/cpc/cpctelera/cpctelera/tools/sdcc-3.6.8-r9946/bin/../share/sdcc/lib/z80
+-k /home/vermia/Desktop/cpc/cpctelera/cpctelera/tools/sdcc-3.6.8-r9946/share/sdcc/lib/z80
+-l /home/vermia/Desktop/cpc/cpctelera/cpctelera/cpctelera.lib
+-l z80
+obj/main.rel
+obj/Entity/Entity.h.rel
+obj/Entity/Entity.rel
+obj/system/Physics.h.rel
+obj/system/Physics.rel
+obj/system/Render.h.rel
+obj/system/Render.rel
+obj/Objetos/Player.h.rel
+obj/Objetos/Player.rel
+
+-e
