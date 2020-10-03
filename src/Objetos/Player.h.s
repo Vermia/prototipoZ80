@@ -1,6 +1,6 @@
 
 .area _DATA
-    PdlayerSprite::
+    PdlayerSprite:
         .db     #0x33 , #0xCC 
         .db     #0x77 , #0xEE 
         .db     #0x11 , #0x88 
