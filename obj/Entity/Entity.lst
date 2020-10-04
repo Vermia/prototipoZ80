@@ -105,7 +105,7 @@ Hexadecimal [16-Bits]
    004A EB            [ 4]   74     ex de, hl
    004B                      75     forallentities:
                              76        ;Primero hacemos la funcion sobre la primera
-   004B CD 52 00      [17]   77        call (entity_function_being_called)
+   004B CD 65 00      [17]   77        call entity_aux_call_function
                              78        ;Avanzamos a la siguiente
    004E                      79         foralliterator:
    004E 3A 50 00      [13]   80             ld a, (entity_data_size)

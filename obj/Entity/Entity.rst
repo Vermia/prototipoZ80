@@ -105,7 +105,7 @@ Hexadecimal [16-Bits]
    4059 EB            [ 4]   74     ex de, hl
    405A                      75     forallentities:
                              76        ;Primero hacemos la funcion sobre la primera
-   405A CD F3 41      [17]   77        call (entity_function_being_called)
+   405A CD 74 40      [17]   77        call entity_aux_call_function
                              78        ;Avanzamos a la siguiente
    405D                      79         foralliterator:
    405D 3A F1 41      [13]   80             ld a, (entity_data_size)

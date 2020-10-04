@@ -33,7 +33,7 @@ Hexadecimal [16-Bits]
                               4     
    4220 C9            [10]    5 ret
                               6 
-   4221                       7 render_one_entity:: ;En bc, la entity a renderizar
+   4221                       7 render_one_entity:: ;En de, la entity a renderizar
    4221 EB            [ 4]    8     ex de, hl
                               9     
                              10     ;Comprobamos que la entity sea renderizable

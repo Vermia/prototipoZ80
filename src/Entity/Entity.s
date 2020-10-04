@@ -74,7 +74,7 @@ entity_forall:: ; Parametros:   (hl) direccion de la funcion a llamar
     ex de, hl
     forallentities:
        ;Primero hacemos la funcion sobre la primera
-       call (entity_function_being_called)
+       call entity_aux_call_function
        ;Avanzamos a la siguiente
         foralliterator:
             ld a, (entity_data_size)
